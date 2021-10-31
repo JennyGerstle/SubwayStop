@@ -3,38 +3,38 @@ import java.util.List;
 
 public class LineInfo
 {
-    List<String> A;
-    List<String> B;
-    List<String> C;
-    List<String> D;
-    List<String> E;
-    List<String> F;
-    List<String> G;
-    List<String> J;
-    List<String> L;
-    List<String> M;
-    List<String> N;
-    List<String> Q;
-    List<String> R;
-    List<String> S;
-    List<String> W;
-    List<String> Z;
+    List<Integer> B;
+    List<Integer> A;
+    List<Integer> C;
+    List<Integer> D;
+    List<Integer> E;
+    List<Integer> F;
+    List<Integer> G;
+    List<Integer> J;
+    List<Integer> L;
+    List<Integer> M;
+    List<Integer> N;
+    List<Integer> Q;
+    List<Integer> R;
+    List<Integer> S;
+    List<Integer> W;
+    List<Integer> Z;
     @SerializedName("7 Express")
-    List<String> sevenExpress;
+    List<Integer> sevenExpress;
     @SerializedName("6 Express")
-    List<String> sixExpress;
+    List<Integer> sixExpress;
     @SerializedName("1")
-    List<String> oneTrain;
+    List<Integer> oneTrain;
     @SerializedName("2")
-    List<String> twoTrain;
+    List<Integer> twoTrain;
     @SerializedName("3")
-    List<String> threeTrain;
+    List<Integer> threeTrain;
     @SerializedName("4")
-    List<String> fourTrain;
+    List<Integer> fourTrain;
     @SerializedName("5")
-    List<String> fiveTrain;
+    List<Integer> fiveTrain;
     @SerializedName("6")
-    List<String> sixTrain;
+    List<Integer> sixTrain;
     @SerializedName("7")
-    List<String> sevenTrain;
+    List<Integer> sevenTrain;
 }

@@ -16,7 +16,7 @@ public class LineInfoTest
         //given
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
-        String lines[] = {"55", "459", "275", "25", "464"};
+        Integer lines[] = {55, 459, 275, 25, 464};
         //when
         LineInfo feed = gson.fromJson(reader, LineInfo.class);
         reader.close();

@@ -11,42 +11,45 @@ public class StationConnection
 {
     private Gson gson = new Gson();
 
-    public List<String> getConnections(String stationName) throws IOException
+    public List<Integer> getConnections(int stationId) throws IOException
     {
         //splitting the string station Json gives into the different lines
         Reader readerStation = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
         StationInfo feed = gson.fromJson(readerStation, StationInfo.class);
         String[] lines = null;
-        for(int station = 0; station < feed.features.size(); station++)
+        for(StationInfo.Features station : feed.features)
         {
-            if(feed.features.get(station).properties.name.equals(stationName))
+            if(station.properties.objectid.equals(String.valueOf(stationId)))
             {
                 //splits the lines up to individual line strings
-                lines = feed.features.get(station).properties.line.split("-");
+                lines = station.properties.line.split("-");
                 break;
             }
         }
-        List<String> connectingStations = new ArrayList<String>();
-        HashMap<String, List<String>> subwayLines = getSubwayLines();
+        List<Integer> connectingStations = new ArrayList<>();
+        HashMap<String, List<Integer>> subwayLines = getSubwayLines();
         for(String line : lines)
         {
-            for (String lineName : subwayLines.keySet())
+            List<Integer> subLines = subwayLines.get(line);
+            int index = subLines.indexOf(stationId);
+            if(index > 0)
             {
-                if(lineName.equals(line))
-                {
-                    connectingStations.addAll(subwayLines.get(lineName));
-                }
+                connectingStations.add(subLines.get(index - 1));
+            }
+            if(index < subLines.size() - 1)
+            {
+                connectingStations.add(subLines.get(index + 1));
             }
         }
         return connectingStations;
     }
 
-    private HashMap<String, List<String>> getSubwayLines() throws IOException
+    private HashMap<String, List<Integer>> getSubwayLines() throws IOException
     {
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
         LineInfo feed = gson.fromJson(reader, LineInfo.class);
-        List<List<String>> subwayLines = new ArrayList<List<String>>();
-        HashMap<String, List<String>> subwayLinesConnection = new HashMap<String, List<String>>();
+        List<List<Integer>> subwayLines = new ArrayList<List<Integer>>();
+        HashMap<String, List<Integer>> subwayLinesConnection = new HashMap<String, List<Integer>>();
         subwayLinesConnection.put("A", feed.A);
         subwayLinesConnection.put("B", feed.B);
         subwayLinesConnection.put("C", feed.C);
