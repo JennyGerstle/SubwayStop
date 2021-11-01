@@ -1,3 +1,4 @@
+
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Reader;
@@ -11,7 +12,7 @@ public class StationConnection
 {
     private Gson gson = new Gson();
 
-    public List<Integer> getConnections(int stationId) throws IOException
+    public List<Station> getConnections(int stationId) throws IOException
     {
         //splitting the string station Json gives into the different lines
         Reader readerStation = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
@@ -19,18 +20,18 @@ public class StationConnection
         String[] lines = null;
         for(StationInfo.Features station : feed.features)
         {
-            if(station.properties.objectid.equals(String.valueOf(stationId)))
+            if(station.properties.objectid == stationId)
             {
                 //splits the lines up to individual line strings
                 lines = station.properties.line.split("-");
                 break;
             }
         }
-        List<Integer> connectingStations = new ArrayList<>();
+        List<Station> connectingStations = new ArrayList<>();
         HashMap<String, List<Integer>> subwayLines = getSubwayLines();
         for(String line : lines)
         {
-            List<Integer> subLines = subwayLines.get(line);
+            List<Station> subLines = subwayLines.get(line);
             int index = subLines.indexOf(stationId);
             if(index > 0)
             {
@@ -48,8 +49,7 @@ public class StationConnection
     {
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
         LineInfo feed = gson.fromJson(reader, LineInfo.class);
-        List<List<Integer>> subwayLines = new ArrayList<List<Integer>>();
-        HashMap<String, List<Integer>> subwayLinesConnection = new HashMap<String, List<Integer>>();
+        HashMap<String, List<Integer>> subwayLinesConnection = new HashMap<>();
         subwayLinesConnection.put("A", feed.A);
         subwayLinesConnection.put("B", feed.B);
         subwayLinesConnection.put("C", feed.C);
@@ -78,4 +78,3 @@ public class StationConnection
         return subwayLinesConnection;
     }
 }
-
