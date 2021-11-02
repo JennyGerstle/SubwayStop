@@ -25,11 +25,9 @@ public class StationConnectionTest
         //when
         LineInfo lineInfo = gson.fromJson(reader, LineInfo.class);
         StationInfo stationInfo = gson.fromJson(readerStation, StationInfo.class);
-        StationInfo station = new StationInfo();
-
         readerStation.close();
         reader.close();
-        List<Integer> stationConnections = new StationConnection().getConnections(station, lineInfo);
+        List<Integer> stationConnections = new StationConnection().getConnections(stationInfo.features.get(2), lineInfo);
 
          //then
         assertEquals(lines[0], stationConnections.get(0));
