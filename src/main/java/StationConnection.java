@@ -1,9 +1,4 @@
-
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,27 +7,16 @@ public class StationConnection
 {
     private Gson gson = new Gson();
 
-    public List<Station> getConnections(int stationId) throws IOException
+    public List<Integer> getConnections(StationInfo.Station station, LineInfo lineInfo)
     {
-        //splitting the string station Json gives into the different lines
-        Reader readerStation = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
-        StationInfo feed = gson.fromJson(readerStation, StationInfo.class);
-        String[] lines = null;
-        for(StationInfo.Features station : feed.features)
-        {
-            if(station.properties.objectid == stationId)
-            {
-                //splits the lines up to individual line strings
-                lines = station.properties.line.split("-");
-                break;
-            }
-        }
-        List<Station> connectingStations = new ArrayList<>();
-        HashMap<String, List<Integer>> subwayLines = getSubwayLines();
+        //splits the lines up to individual line strings
+        String[] lines = station.properties.line.split("-");
+        List<Integer> connectingStations = new ArrayList<>();
+        HashMap<String, List<Integer>> subwayLines = getSubwayLines(lineInfo);
         for(String line : lines)
         {
-            List<Station> subLines = subwayLines.get(line);
-            int index = subLines.indexOf(stationId);
+            List<Integer> subLines = subwayLines.get(line);
+            int index = subLines.indexOf(station.properties.objectid);
             if(index > 0)
             {
                 connectingStations.add(subLines.get(index - 1));
@@ -45,36 +29,34 @@ public class StationConnection
         return connectingStations;
     }
 
-    private HashMap<String, List<Integer>> getSubwayLines() throws IOException
+    private HashMap<String, List<Integer>> getSubwayLines(LineInfo linenInfo)
     {
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
-        LineInfo feed = gson.fromJson(reader, LineInfo.class);
         HashMap<String, List<Integer>> subwayLinesConnection = new HashMap<>();
-        subwayLinesConnection.put("A", feed.A);
-        subwayLinesConnection.put("B", feed.B);
-        subwayLinesConnection.put("C", feed.C);
-        subwayLinesConnection.put("D", feed.D);
-        subwayLinesConnection.put("E", feed.E);
-        subwayLinesConnection.put("F", feed.F);
-        subwayLinesConnection.put("G", feed.G);
-        subwayLinesConnection.put("J", feed.J);
-        subwayLinesConnection.put("L", feed.L);
-        subwayLinesConnection.put("M", feed.M);
-        subwayLinesConnection.put("N", feed.N);
-        subwayLinesConnection.put("Q", feed.Q);
-        subwayLinesConnection.put("R", feed.R);
-        subwayLinesConnection.put("S", feed.S);
-        subwayLinesConnection.put("W", feed.W);
-        subwayLinesConnection.put("Z", feed.Z);
-        subwayLinesConnection.put("1", feed.oneTrain);
-        subwayLinesConnection.put("2", feed.twoTrain);
-        subwayLinesConnection.put("3", feed.threeTrain);
-        subwayLinesConnection.put("4", feed.fourTrain);
-        subwayLinesConnection.put("5", feed.fiveTrain);
-        subwayLinesConnection.put("6", feed.sixTrain);
-        subwayLinesConnection.put("7", feed.sevenTrain);
-        subwayLinesConnection.put("7 Express", feed.sevenExpress);
-        subwayLinesConnection.put("6 Express", feed.sixExpress);
+        subwayLinesConnection.put("A", linenInfo.A);
+        subwayLinesConnection.put("B", linenInfo.B);
+        subwayLinesConnection.put("C", linenInfo.C);
+        subwayLinesConnection.put("D", linenInfo.D);
+        subwayLinesConnection.put("E", linenInfo.E);
+        subwayLinesConnection.put("F", linenInfo.F);
+        subwayLinesConnection.put("G", linenInfo.G);
+        subwayLinesConnection.put("J", linenInfo.J);
+        subwayLinesConnection.put("L", linenInfo.L);
+        subwayLinesConnection.put("M", linenInfo.M);
+        subwayLinesConnection.put("N", linenInfo.N);
+        subwayLinesConnection.put("Q", linenInfo.Q);
+        subwayLinesConnection.put("R", linenInfo.R);
+        subwayLinesConnection.put("S", linenInfo.S);
+        subwayLinesConnection.put("W", linenInfo.W);
+        subwayLinesConnection.put("Z", linenInfo.Z);
+        subwayLinesConnection.put("1", linenInfo.oneTrain);
+        subwayLinesConnection.put("2", linenInfo.twoTrain);
+        subwayLinesConnection.put("3", linenInfo.threeTrain);
+        subwayLinesConnection.put("4", linenInfo.fourTrain);
+        subwayLinesConnection.put("5", linenInfo.fiveTrain);
+        subwayLinesConnection.put("6", linenInfo.sixTrain);
+        subwayLinesConnection.put("7", linenInfo.sevenTrain);
+        subwayLinesConnection.put("7 Express", linenInfo.sevenExpress);
+        subwayLinesConnection.put("6 Express", linenInfo.sixExpress);
         return subwayLinesConnection;
     }
 }
