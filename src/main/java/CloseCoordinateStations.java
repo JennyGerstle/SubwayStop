@@ -17,8 +17,10 @@ public class CloseCoordinateStations
     }
     private boolean closer(StationInfo.Station first, StationInfo.Station second, List<Double> coordinates)
     {
-        Double firstDistance = (Math.sqrt(Math.pow(first.geometry.coordinates.get(0) - coordinates.get(0), 2)+ Math.pow(first.geometry.coordinates.get(1) - coordinates.get(1), 2)));
-        Double secondDistance = (Math.sqrt(Math.pow(second.geometry.coordinates.get(0) - coordinates.get(0), 2)+ Math.pow(second.geometry.coordinates.get(1) - coordinates.get(1), 2)));
-        return firstDistance < secondDistance;
+        return distanceFormula(first, coordinates) < distanceFormula(second, coordinates);
+    }
+    private Double distanceFormula(StationInfo.Station station, List<Double> coordinates)
+    {
+        return (Math.sqrt(Math.pow(station.geometry.coordinates.get(0) - coordinates.get(0), 2)+ Math.pow(station.geometry.coordinates.get(1) - coordinates.get(1), 2)));
     }
 }

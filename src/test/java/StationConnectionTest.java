@@ -20,7 +20,6 @@ public class StationConnectionTest
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
         Reader readerStation = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
-        Integer lines[] = {359, 94};
 
         //when
         LineInfo lineInfo = gson.fromJson(reader, LineInfo.class);
@@ -30,7 +29,7 @@ public class StationConnectionTest
         List<Integer> stationConnections = new StationConnection().getConnections(stationInfo.features.get(2), lineInfo);
 
          //then
-        assertEquals(lines[0], stationConnections.get(0));
-        assertEquals(lines[1], stationConnections.get(1));
+        assertEquals(Integer.valueOf(359), stationConnections.get(0));
+        assertEquals(Integer.valueOf(94), stationConnections.get(1));
     }
 }

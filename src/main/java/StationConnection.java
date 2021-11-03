@@ -45,7 +45,6 @@ public class StationConnection
         subwayLinesConnection.put("N", linenInfo.N);
         subwayLinesConnection.put("Q", linenInfo.Q);
         subwayLinesConnection.put("R", linenInfo.R);
-        subwayLinesConnection.put("S", linenInfo.S);
         subwayLinesConnection.put("W", linenInfo.W);
         subwayLinesConnection.put("Z", linenInfo.Z);
         subwayLinesConnection.put("1", linenInfo.oneTrain);
