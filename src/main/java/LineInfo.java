@@ -16,7 +16,6 @@ public class LineInfo
     List<Integer> N;
     List<Integer> Q;
     List<Integer> R;
-    List<Integer> S;
     List<Integer> W;
     List<Integer> Z;
     @SerializedName("7 Express")

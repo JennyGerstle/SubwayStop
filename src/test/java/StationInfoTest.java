@@ -22,7 +22,7 @@ public class StationInfoTest
         //then
         assertEquals("Astor Pl", feed.features.get(0).properties.name);
         assertEquals("4-6-6 Express", feed.features.get(0).properties.line);
-        assertEquals("1", feed.features.get(0).properties.objectid);
+        assertEquals(1, feed.features.get(0).properties.objectid);
         assertEquals(-73.99106999861966, feed.features.get(0).geometry.coordinates.get(0), 0);
         assertEquals(40.73005400028978, feed.features.get(0).geometry.coordinates.get(1), 0);
 
