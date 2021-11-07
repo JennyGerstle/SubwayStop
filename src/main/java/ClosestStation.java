@@ -92,10 +92,10 @@ public class ClosestStation
         List<StationInfo.Station> stationPath = new ArrayList<>();
         Integer distance = visitedStops.get(end.properties.objectid);
         StationInfo.Station previousStation = end;
-        while(distance >= 0)
+        while(distance >= 1)
         {
             Integer previous = stationAndPrevious.get(previousStation.properties.objectid);
-            previousStation = stationList.get(previous);
+            previousStation = stationList.get(previous-1);
             stationPath.add(previousStation);
             distance -=1;
         }

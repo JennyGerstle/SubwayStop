@@ -26,15 +26,14 @@ public class ClosestStationTest
         List<StationInfo.Station> closestPath = new ClosestStation().getClosestStation(stationInfo.features.get(1), stationInfo.features.get(3),stationInfo, lineInfo);
 
         //then
-        assertEquals(195, closestPath.get(0).properties.objectid);
-        assertEquals(73, closestPath.get(1).properties.objectid);
-        assertEquals(151, closestPath.get(2).properties.objectid);
-        assertEquals(149, closestPath.get(3).properties.objectid);
-        assertEquals(137, closestPath.get(4).properties.objectid);
-        assertEquals(135, closestPath.get(5).properties.objectid);
-        assertEquals(45, closestPath.get(6).properties.objectid);
-        assertEquals(39, closestPath.get(7).properties.objectid);
-        assertEquals(117, closestPath.get(8).properties.objectid);
+        assertEquals(2, closestPath.get(0).properties.objectid);
+        assertEquals(29, closestPath.get(1).properties.objectid);
+        assertEquals(427, closestPath.get(2).properties.objectid);
+        assertEquals(420, closestPath.get(3).properties.objectid);
+        assertEquals(419, closestPath.get(4).properties.objectid);
+        assertEquals(123, closestPath.get(5).properties.objectid);
+        assertEquals(128, closestPath.get(6).properties.objectid);
+        assertEquals(116, closestPath.get(7).properties.objectid);
     }
 
 }
