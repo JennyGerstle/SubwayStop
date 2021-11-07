@@ -2,11 +2,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StationConnection
 {
-    private Gson gson = new Gson();
-
     public List<Integer> getConnections(StationInfo.Station station, LineInfo lineInfo)
     {
         //splits the lines up to individual line strings
@@ -15,15 +14,18 @@ public class StationConnection
         HashMap<String, List<Integer>> subwayLines = getSubwayLines(lineInfo);
         for(String line : lines)
         {
-            List<Integer> subLines = subwayLines.get(line);
-            int index = subLines.indexOf(station.properties.objectid);
-            if(index > 0)
+            if(!line.equals("S"))
             {
-                connectingStations.add(subLines.get(index - 1));
-            }
-            if(index < subLines.size() - 1)
-            {
-                connectingStations.add(subLines.get(index + 1));
+                List<Integer> subLines = subwayLines.get(line);
+                int index = subLines.indexOf(station.properties.objectid);
+                if (index > 0)
+                {
+                    connectingStations.add(subLines.get(index - 1));
+                }
+                if (index < subLines.size() - 1)
+                {
+                    connectingStations.add(subLines.get(index + 1));
+                }
             }
         }
         return connectingStations;
