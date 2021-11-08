@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import org.junit.Test;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,18 +20,19 @@ public class StationConnectionTest
     {
         //given
         Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
-        Reader readerStation = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
-
+        InputStream in = ClassLoader.getSystemResourceAsStream("SubwayLines.json");
+        InputStreamReader reader = new InputStreamReader(in);
+        InputStream inStation = ClassLoader.getSystemResourceAsStream("Subwaystations.json");
+        InputStreamReader readerStation = new InputStreamReader(inStation);
         //when
         LineInfo lineInfo = gson.fromJson(reader, LineInfo.class);
         StationInfo stationInfo = gson.fromJson(readerStation, StationInfo.class);
         readerStation.close();
         reader.close();
-        List<Integer> stationConnections = new StationConnection().getConnections(stationInfo.features.get(2), lineInfo);
+        List<Integer> stationConnections = new StationConnection().getConnections(stationInfo.features.get(1), lineInfo);
 
          //then
-        assertEquals(Integer.valueOf(359), stationConnections.get(0));
-        assertEquals(Integer.valueOf(94), stationConnections.get(1));
+        assertEquals(Integer.valueOf(29), stationConnections.get(0));
+        assertEquals(Integer.valueOf(467), stationConnections.get(1));
     }
 }

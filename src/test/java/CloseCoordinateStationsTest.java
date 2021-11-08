@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import org.junit.Test;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,7 +21,8 @@ public class CloseCoordinateStationsTest
         coordinates.add(-73.9723553085244);
         coordinates.add(40.603258405128265);
         Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Subwaystations.json"));
+        InputStream in = ClassLoader.getSystemResourceAsStream("Subwaystations.json");
+        InputStreamReader reader = new InputStreamReader(in);
 
         //when
         StationInfo stationInfo = gson.fromJson(reader, StationInfo.class);

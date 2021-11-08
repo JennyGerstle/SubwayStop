@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,7 +17,8 @@ public class LineInfoTest
     {
         //given
         Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/SubwayLines.json"));
+        InputStream in = ClassLoader.getSystemResourceAsStream("SubwayLines.json");
+        InputStreamReader reader = new InputStreamReader(in);
         Integer lines[] = {55, 459, 275, 25, 464};
         //when
         LineInfo feed = gson.fromJson(reader, LineInfo.class);
