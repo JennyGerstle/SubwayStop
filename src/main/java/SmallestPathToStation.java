@@ -34,17 +34,17 @@ public class SmallestPathToStation
             Integer previous = stationAndPrevious.get(previousStation.properties.objectid);
             previousStation = stationList.get(previous-1);
             stationPath.add(previousStation);
-            distance -=1;
+            distance--;
         }
         Collections.reverse(stationPath);
         return stationPath;
     }
-    public HashMap<Integer, Integer> getStationDistances(HashMap<Integer, Integer> stationAndDistance, HashMap<Integer, Integer> stationAndPrevious, HashMap<Integer, Integer> visitedStops, List<StationInfo.Station> stationList, LineInfo lineInfo)
+    public void getStationDistances(HashMap<Integer, Integer> stationAndDistance, HashMap<Integer, Integer> stationAndPrevious, HashMap<Integer, Integer> visitedStops, List<StationInfo.Station> stationList, LineInfo lineInfo)
     {
         StationConnection stationConncetion = new StationConnection();
         List<Integer> connectingStations = new ArrayList<>();
         int curDistance;
-        Integer nextStationInt;
+        Integer nextStationInt = null;
         Integer stationDistance;
         while(stationAndDistance.values().size() > 1)
         {
@@ -54,13 +54,13 @@ public class SmallestPathToStation
             {
                 for (Map.Entry<Integer, Integer> entry : stationAndDistance.entrySet())
                 {
-                    if (Objects.equals(entry.getValue(), stationDistance))
+                    if (entry.getValue().equals(stationDistance))
                     {
-                        lowestDistanceStops.add(entry.getKey());
+                        nextStationInt = entry.getKey();
+                        break;
                     }
                 }
             }
-            nextStationInt = lowestDistanceStops.get(0);
             StationInfo.Station nextStation = null;
             for(StationInfo.Station stationCheck : stationList)
             {
@@ -97,6 +97,5 @@ public class SmallestPathToStation
         Integer distanceFromStart = stationAndDistance.get(nextIteratedStation);
         visitedStops.put(nextIteratedStation, distanceFromStart);
         stationAndDistance.remove(nextIteratedStation);
-        return stationAndPrevious;
     }
 }
