@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ClosestStationTest
+public class SmallestPathToStationTest
 {
     @Test
     public void getClosestStation() throws IOException
@@ -23,9 +23,10 @@ public class ClosestStationTest
         StationInfo stationInfo = gson.fromJson(readerStation, StationInfo.class);
         readerStation.close();
         reader.close();
-        List<StationInfo.Station> closestPath = new ClosestStation().getClosestStation(stationInfo.features.get(1), stationInfo.features.get(3),stationInfo, lineInfo);
+        List<StationInfo.Station> closestPath = new SmallestPathToStation().getPathToStation(stationInfo.features.get(1), stationInfo.features.get(3),stationInfo, lineInfo);
 
         //then
+        assertEquals(2,  stationInfo.features.get(1).properties.objectid);
         assertEquals(2, closestPath.get(0).properties.objectid);
         assertEquals(29, closestPath.get(1).properties.objectid);
         assertEquals(427, closestPath.get(2).properties.objectid);
